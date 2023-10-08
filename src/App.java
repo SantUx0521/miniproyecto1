@@ -16,6 +16,7 @@ public class App {
             System.out.println("[3] Eliminar Candidato");
             System.out.println("[4] Buscar Candidato por nombre");
             System.out.println("[5] Listar todos los Candidatos");
+            System.out.println("[6] Salir del Menu");
             System.out.println("Digite el número escogido: ");
             numero = entrada.nextByte();
 
