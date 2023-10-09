@@ -1,12 +1,12 @@
-public class Cuidadano {
+public class Ciudadano {
     
     public String nombre;
-    public String cuidad_o;
+    public String ciudad_o;
     private int cedula;
 
-    public Cuidadano(String nombre, String cuidad_o, int cedula) {
+    public Ciudadano(String nombre, String ciudad_o, int cedula) {
         this.nombre = nombre;
-        this.cuidad_o = cuidad_o;
+        this.ciudad_o = ciudad_o;
         this.cedula = cedula;
     }
 
@@ -18,12 +18,12 @@ public class Cuidadano {
         this.nombre = nombre;
     }
 
-    public String getCuidad_o() {
-        return cuidad_o;
+    public String getCiudad_o() {
+        return ciudad_o;
     }
 
-    public void setCuidad_o(String cuidad_o) {
-        this.cuidad_o = cuidad_o;
+    public void setCiudad_o(String ciudad_o) {
+        this.ciudad_o = ciudad_o;
     }
 
     public int getCedula() {
