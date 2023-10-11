@@ -2,7 +2,7 @@ public class Ciudadano {
     
     public String nombre;
     public String ciudad_o;
-    private int cedula;
+    protected int cedula;
 
     public Ciudadano(String nombre, String ciudad_o, int cedula) {
         this.nombre = nombre;
