@@ -10,6 +10,9 @@ public class Ciudadano {
         this.cedula = cedula;
     }
 
+    public Ciudadano(String nombre2, int cedula2) {
+    }
+
     public String getNombre() {
         return nombre;
     }
