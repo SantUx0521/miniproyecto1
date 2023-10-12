@@ -463,8 +463,3 @@ private static boolean existeNombre(ArrayList<Candidato> candidatos, String nomb
 
 
 }
-
-
-
->>>>>>> c6a36d0 (Añado la funcionalidad para verificar que la cedula no se repita)
-}

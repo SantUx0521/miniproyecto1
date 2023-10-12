@@ -32,3 +32,9 @@ public class Ciudadano {
     public int getCedula() {
         return cedula;
     }
+
+    public void setCedula(int cedula) {
+        this.cedula = cedula;
+    }
+    
+}
