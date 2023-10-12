@@ -1,14 +1,19 @@
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 class Candidato {
     String nombre;
     String ciudad;
     int cedula;
     String partido;
+    int votos;
     ArrayList<String> propuestas;
 
     public Candidato(String nombre, String ciudad, int cedula, String partido, ArrayList<String> propuestas) {
@@ -17,6 +22,7 @@ class Candidato {
         this.cedula = cedula;
         this.partido = partido;
         this.propuestas = propuestas;
+        this.votos = 0;
     }
 
 }
@@ -26,18 +32,6 @@ public class App {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        menu();
-    }
-
-
-import java.util.ArrayList;
-import java.io.IOException;
-import java.util.Scanner;
-
-
-public class App {
-    private static ArrayList<String> nombre = new ArrayList<>();
-    public static void main(String[] args){
         menu();
     }
 
@@ -64,13 +58,10 @@ public class App {
             System.out.println("[1] Insertar Candidato");
             System.out.println("[2] Actualizar Candidato");
             System.out.println("[3] Eliminar Candidato");
-
             System.out.println("[4] Buscar Candidato por nombre");
-
-            System.out.println("[4] Buscar Candidato por numero");
-
             System.out.println("[5] Listar todos los Candidatos");
-            System.out.println("[6] Salir del Menu");
+            System.out.println("[6] Finalizar el CRUD");
+            System.out.println("[7] Salir ");
             System.out.println("Digite el número escogido: ");
             numero = entrada.nextByte();
 
@@ -93,9 +84,15 @@ public class App {
                             System.out.println("Ciudad no válida. Debe ser del Valle del Cauca.");
                         }
                     } while (!ciudadPerteneceAlValle(ciudadInsertar));
+                    
+                    do{
+                        System.out.print("Ingrese el nombre del partido politico (debe ser de colombia): ");
+                        partidoInsertar = scanner.nextLine();
 
-                    System.out.print("Ingrese el nombre del partido politico: ");
-                    partidoInsertar = scanner.nextLine();
+                        if (!partidoPerteneceAColombia(partidoInsertar)) {
+                            System.out.println("El partido no pertenece a Colombia, por favor ingrese uno correcto. ");
+                        }
+                    } while (!partidoPerteneceAColombia(partidoInsertar));
 
                     ArrayList<String> propuestasInsertar = new ArrayList<>();
                     System.out.print("Ingrese una propuesta (o 'fin' para terminar): ");
@@ -142,7 +139,7 @@ public class App {
                             System.out.println("Digite el número del campo a actualizar: ");
                             
                             int opcion = scanner.nextInt();
-                            scanner.nextLine(); // Consumir el salto de línea después de nextInt()
+                            scanner.nextLine(); 
                 
                             switch (opcion) {
                                 case 1:
@@ -152,7 +149,7 @@ public class App {
                                 case 2:
                                     System.out.print("Ingrese la nueva cédula: ");
                                     candidato.cedula = scanner.nextInt();
-                                    scanner.nextLine(); // Consumir el salto de línea después de nextInt()
+                                    scanner.nextLine(); 
                                     break;
                                 case 3:
                                     String nuevaCiudad;
@@ -168,8 +165,17 @@ public class App {
                                     candidato.ciudad = nuevaCiudad;
                                     break;
                                 case 4:
-                                    System.out.print("Ingrese el nuevo partido: ");
-                                    candidato.partido = scanner.nextLine();
+                                    String nuevoPartido;
+                                    do{
+                                        System.out.print("Ingrese el nombre del partido politico (debe ser de colombia): ");
+                                        nuevoPartido = scanner.nextLine();
+
+                                        if (!partidoPerteneceAColombia(nuevoPartido)) {
+                                            System.out.println("El partido no pertenece a Colombia, por favor ingrese uno correcto. ");
+                                         }
+                                    } while (!partidoPerteneceAColombia(nuevoPartido));
+
+                                    candidato.partido = nuevoPartido;
                                     break;
                                 case 5:
                                     ArrayList<String> nuevasPropuestas = new ArrayList<>();
@@ -196,14 +202,6 @@ public class App {
                     }
 
                     System.out.println("Pulse 0 para volver al menú: ");
-
-            switch (numero) {
-                case 1:
-                    System.out.println("Ingrese un candidato: ");
-                    Scanner candidatos = new Scanner(System.in);
-                    String nombre_candidato = candidatos.nextLine();
-                    nombre.add(nombre_candidato);
-                    System.out.println("Pulse 0 para volver al menú: ");
                     salida = salir.nextByte();
                     if(salida == 0){
                         clearScreen();
@@ -211,36 +209,6 @@ public class App {
                     }else{
                         break;
                     }
-
-                    
-                    
-                case 2:
-                    System.out.println("Ingrese el nombre del candidato que desea actualizar:");
-                    String candidatoAntiguo = entrada.next();
-
-                    if (nombre.contains(candidatoAntiguo)) {
-                        System.out.println("Ingrese el nuevo nombre del candidato:");
-                        String nuevoNombre = entrada.next();
-                    
-                    
-                        int indice = nombre.indexOf(candidatoAntiguo);
-                        nombre.set(indice, nuevoNombre);
-
-                        System.out.println("Candidato actualizado correctamente.");
-                    } else {
-                        System.out.println("El candidato no se encontró en la lista.");
-                }
-                
-                System.out.println("Pulse 0 para volver al menú: ");
-
-                    salida = salir.nextByte();
-                    if(salida == 0){
-                        clearScreen();
-                        menu();
-                    }else{
-                        break;
-                    }
-
 
                 case 3:
                     System.out.print("Ingrese el nombre del candidato a eliminar: ");
@@ -256,8 +224,6 @@ public class App {
                             System.out.println("No se encontró ningún candidato con ese nombre.");
                         }
                     }
-                
-                    //System.out.println("No se encontró ningún candidato con ese nombre.");
                 
                     System.out.println("Pulse 0 para volver al menú: ");
                     salida = salir.nextByte();
@@ -283,7 +249,7 @@ public class App {
                             System.out.println("Ciudad: " + candidato.ciudad);
                             System.out.println("Propuestas: " + candidato.propuestas);
                             encontrado = true;
-                            break; // Salir del bucle una vez que se encuentra el candidato.
+                            break; 
                         }
                     }
                 
@@ -309,27 +275,9 @@ public class App {
                             System.out.println("Nombre: " + candidato.nombre);
                             System.out.println("Cédula: " + candidato.cedula);
                             System.out.println("Ciudad: " + candidato.ciudad);
+                            System.out.println("Partido: " + candidato.partido);
                             System.out.println("Propuestas: " + candidato.propuestas);
                             System.out.println("--------------------");
-                        }
-                    }
-
-
-                case 3:
-                    System.out.println("Eliminar Candidato");
-                    // Lógica para eliminar candidato
-                    break;
-                case 4:
-                    System.out.println("Buscar Candidato por nombre");
-                    // Lógica para buscar candidato por nombre
-                    break;
-                case 5:
-                    if (nombre.isEmpty()) {
-                        System.out.println("No hay ningun candidato registrado.");
-                    } else {
-                        System.out.println("Los candidatos registrados son:");
-                        for (int i = 0; i < nombre.size(); i++) {
-                            System.out.println((i + 1) + ". " + nombre.get(i));
                         }
                     }
 
@@ -342,9 +290,11 @@ public class App {
                         break;
                     }
 
-
                 case 6:
-                    System.out.println("Adios!");
+                    ingresarVotos();
+                    break;
+                case 7:
+                    System.out.println("Adios");
                     break;
 
                 default:
@@ -357,27 +307,125 @@ public class App {
 
     private static boolean ciudadPerteneceAlValle(String ciudad) {
         // Lista de ciudades del Valle del Cauca
-        String[] ciudadesValle = {"cali", "buga", "palmira", "tulua", };/* Agrega otras ciudades según sea necesario */
+        String[] ciudadesValle = {"cali", "buga", "palmira", "tulua", "cartago"};
     
-        // Compara la ciudad ingresada con las ciudades del Valle del Cauca
         for (String ciudadValle : ciudadesValle) {
             if (ciudad.equalsIgnoreCase(ciudadValle)) {
                 return true;  // La ciudad está en el Valle del Cauca
             }
         }
-        return false;  // La ciudad no está en el Valle del Cauca
+        return false;
+    }
 
-                case 6:
-                    System.out.println("Adios!");
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-                    menu(); // Llamada recursiva si la opción no es válida
-                    break;
-                }
+    private static boolean partidoPerteneceAColombia(String partido) {
+        String[] partidos_col = {"partido liberal","liberal","partido conservador","conservador","liga", "aico","partido verde","union patriotica","up","partido alianza social" };
+    
+        for (String partidos_pol : partidos_col) {
+            if (partido.equalsIgnoreCase(partidos_pol)) {
+                return true;  
+            }
+        }
+        return false; 
+    }
+
+    public static void ingresarVotos() {
+        for (Candidato candidato : candidatos) {
+            System.out.print("Ingrese la cantidad de votos para " + candidato.nombre + ": ");
+            Byte votosIngresar = scanner.nextByte();
+            candidato.votos = votosIngresar;
+        }
+        System.out.println("Votos ingresados exitosamente.");
+        clearScreen();
+
+        System.out.println("Pulse 1 para ver los resultados: ");
+        Byte resultados = scanner.nextByte();
+        if (resultados == 1){
+            mostrarResultados();
+        }
+        scanner.nextLine();
         }
 
-    }
-}
+    public static void mostrarResultados() {
 
-  
+        ArrayList<Candidato> candidatosOrdenados = new ArrayList<>(candidatos);
+        candidatosOrdenados.sort((c1, c2) -> Integer.compare(c2.votos, c1.votos));
+
+        System.out.println("Resultados de las Elecciones (de mayor a menor número de votos):");
+        byte contador = 1;
+        for (Candidato candidato : candidatosOrdenados) {
+            System.out.println("Posicion: " + "#" + contador);
+            System.out.println("Nombre: " + candidato.nombre);
+            System.out.println("Cédula: " + candidato.cedula);
+            System.out.println("Ciudad: " + candidato.ciudad);
+            System.out.println("Partido: " + candidato.partido);
+            System.out.println("Propuestas: " + candidato.propuestas);
+            System.out.println("Votos: " + candidato.votos);
+            System.out.println("--------------------");
+            contador++;
+        }
+        System.out.println("pulsa 1 para ver más detalles o cualquier otro número para volver al menú: ");
+        byte detalles = scanner.nextByte();
+        if (detalles == 1) {
+            mostrarPropuestasGanador(candidatosOrdenados);
+        } else {
+            System.out.println("Volviendo al menú");
+            clearScreen();
+            menu();
+        }
+    }
+
+    public static void mostrarPropuestasGanador(ArrayList<Candidato> candidatosOrdenados) {
+        scanner.nextLine();
+        if (!candidatosOrdenados.isEmpty()) {
+            Candidato ganador = candidatosOrdenados.get(0);
+            System.out.println("Propuestas del Ganador: " + ganador.nombre);
+            System.out.println("\n");
+            for (String propuesta : ganador.propuestas) {
+                System.out.println(propuesta);
+                System.out.println("\n");
+            }
+        } else{
+            System.out.println("no hay candidatos para mostrar.");
+        }
+        mostrarPartidoConMasCandidatos();
+    }
+
+    public static void mostrarPartidoConMasCandidatos() {
+        Map<String, Integer> partidoCandidatosCount = new HashMap<>();
+        for (Candidato candidato : candidatos) {
+            partidoCandidatosCount.put(candidato.partido, partidoCandidatosCount.getOrDefault(candidato.partido, 0) + 1);
+        }
+        String partidoMasCandidatos = partidoCandidatosCount.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse("No hay datos");
+        System.out.println("Partido con más candidatos inscritos: " + partidoMasCandidatos);
+        System.out.println("\n");
+
+
+        Map<String, Integer> ciudadCandidatosCount = new HashMap<>();
+        for (Candidato candidato : candidatos) {
+            ciudadCandidatosCount.put(candidato.ciudad, ciudadCandidatosCount.getOrDefault(candidato.ciudad, 0) + 1);
+        }
+        List<Map.Entry<String, Integer>> ciudadesMenosCandidatos = ciudadCandidatosCount.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .limit(3)
+                .collect(Collectors.toList());
+
+        System.out.println("3 Ciudades con menos candidatos:");
+        System.out.println("\n");
+        for (Map.Entry<String, Integer> entry : ciudadesMenosCandidatos) {
+            System.out.println(entry.getKey() + " - Candidatos: " + entry.getValue());
+        }
+        System.out.println("\n");
+        System.out.println("Pulse 0 para volver al menú: ");
+                    Byte salida = scanner.nextByte();
+                    if (salida == 0) {
+                        clearScreen();
+                        menu();
+                    }
+
+    }
+
+
+}
