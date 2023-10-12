@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-//import java.util.ArrayList;
-import java.util.Scanner;
-
-public class App {
-    public static void main(String[] args){
-        menu();
-    }
-
-    public static void menu() {
-        try (Scanner entrada = new Scanner(System.in)) {
-            byte numero;
-=======
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,31 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-class Candidato {
-    String nombre;
-    String ciudad;
-    int cedula;
-    String partido;
-    int votos;
-    ArrayList<String> propuestas;
-
-    public int getCedula() {
-        return cedula;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public Candidato(String nombre, String ciudad, int cedula, String partido, ArrayList<String> propuestas) {
-        this.nombre = nombre;
-        this.ciudad = ciudad;
-        this.cedula = cedula;
-        this.partido = partido;
-        this.propuestas = propuestas;
-        this.votos = 0;
-    }
-
-}
 
 public class App {
     static ArrayList<Candidato> candidatos = new ArrayList<>();
@@ -90,7 +52,6 @@ private static boolean existeNombre(ArrayList<Candidato> candidatos, String nomb
             byte numero;
             byte salida;
             Scanner salir = new Scanner(System.in);
->>>>>>> c6a36d0 (Añado la funcionalidad para verificar que la cedula no se repita)
 
             System.out.println("---------- MENU -----------");
             System.out.println("[1] Insertar Candidato");
@@ -98,43 +59,6 @@ private static boolean existeNombre(ArrayList<Candidato> candidatos, String nomb
             System.out.println("[3] Eliminar Candidato");
             System.out.println("[4] Buscar Candidato por nombre");
             System.out.println("[5] Listar todos los Candidatos");
-<<<<<<< HEAD
-            System.out.println("[6] Salir del Menu");
-            System.out.println("Digite el número escogido: ");
-            numero = entrada.nextByte();
-
-            switch (numero) {
-                case 1:
-                    System.out.println("Insertar Candidato");
-                    // Lógica para insertar candidato
-                    break;
-                case 2:
-                    System.out.println("Actualizar Candidato");
-                    // Lógica para actualizar candidato
-                    break;
-                case 3:
-                    System.out.println("Eliminar Candidato");
-                    // Lógica para eliminar candidato
-                    break;
-                case 4:
-                    System.out.println("Buscar Candidato por nombre");
-                    // Lógica para buscar candidato por nombre
-                    break;
-                case 5:
-                    System.out.println("Listar todos los Candidatos");
-                    // Lógica para listar todos los candidatos
-                    break;
-                case 6:
-                    System.out.println("Adios!");
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-                    menu(); // Llamada recursiva si la opción no es válida
-                    break;
-                }
-        }
-    }
-=======
             System.out.println("[6] Finalizar el CRUD");
             System.out.println("[7] Salir ");
             System.out.println("Digite el número escogido: ");
@@ -235,11 +159,28 @@ private static boolean existeNombre(ArrayList<Candidato> candidatos, String nomb
                             switch (opcion) {
                                 case 1:
                                     System.out.print("Ingrese el nuevo nombre: ");
-                                    candidato.nombre = scanner.nextLine();
+                                    System.out.print("Ingrese el nombre del candidato: ");
+                                    name = scanner.nextLine();
+                                    while(existeNombre(candidatos, name)){
+                                    if(candidatos.isEmpty())break;
+                                    for (Candidato candidat : candidatos) {
+                                    if (candidat.getNombre().equals(name)){
+                                    System.out.println("El nombre no puede ser igual, ingrese uno distinto: ");
+                                    name = scanner.nextLine();
+                                    }}};
+                                    candidato.nombre = name;
                                     break;
                                 case 2:
                                     System.out.print("Ingrese la nueva cédula: ");
-                                    candidato.cedula = scanner.nextInt();
+                                    identificacion = scanner.nextInt();
+                                    while(existeCedula(candidatos, identificacion)){
+                                    if(candidatos.isEmpty())break;
+                                    for (Candidato candida : candidatos) {
+                                    if (candida.getCedula() == identificacion){
+                                    System.out.println("La cedula no puede ser igual, ingrese una distinta: ");
+                                    identificacion = scanner.nextInt();
+                                    }}};                  
+                                    candidato.cedula = identificacion;
                                     scanner.nextLine(); 
                                     break;
                                 case 3:
@@ -398,7 +339,7 @@ private static boolean existeNombre(ArrayList<Candidato> candidatos, String nomb
 
     private static boolean ciudadPerteneceAlValle(String ciudad) {
         // Lista de ciudades del Valle del Cauca
-        String[] ciudadesValle = {"Cali", "Buga", "Palmira", "Tulua", "Cartago"};
+        String[] ciudadesValle = {"Cali", "Buga", "Palmira", "Tulua", "Cartago","Bugalagrande", "Buenaventura","Yumbo"};
     
         for (String ciudadValle : ciudadesValle) {
             if (ciudad.equalsIgnoreCase(ciudadValle)) {
@@ -409,7 +350,8 @@ private static boolean existeNombre(ArrayList<Candidato> candidatos, String nomb
     }
 
     private static boolean partidoPerteneceAColombia(String partido) {
-        String[] partidos_col = {"partido liberal","liberal","partido conservador","conservador","liga", "aico","partido verde","union patriotica","up","partido alianza social" };
+        String[] partidos_col = {"partido liberal","liberal","partido conservador","conservador","liga", "aico","partido verde","union patriotica","up",
+                                "partido alianza social", "centro democratico", "partido de la u", "polo","mira", "cambio radical"};
     
         for (String partidos_pol : partidos_col) {
             if (partido.equalsIgnoreCase(partidos_pol)) {
@@ -518,6 +460,10 @@ private static boolean existeNombre(ArrayList<Candidato> candidatos, String nomb
                     }
 
     }
+
+
+}
+
 
 
 >>>>>>> c6a36d0 (Añado la funcionalidad para verificar que la cedula no se repita)
