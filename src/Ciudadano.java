@@ -2,16 +2,15 @@ public class Ciudadano {
     
     public String nombre;
     public String ciudad_o;
-<<<<<<< HEAD
-    private int cedula;
-=======
     protected int cedula;
->>>>>>> c6a36d0 (Añado la funcionalidad para verificar que la cedula no se repita)
 
     public Ciudadano(String nombre, String ciudad_o, int cedula) {
         this.nombre = nombre;
         this.ciudad_o = ciudad_o;
         this.cedula = cedula;
+    }
+
+    public Ciudadano(String nombre2, int cedula2) {
     }
 
     public String getNombre() {
@@ -33,9 +32,3 @@ public class Ciudadano {
     public int getCedula() {
         return cedula;
     }
-
-    public void setCedula(int cedula) {
-        this.cedula = cedula;
-    }
-    
-}
